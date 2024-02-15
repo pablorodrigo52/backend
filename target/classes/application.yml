@@ -1,0 +1,18 @@
+app:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+    connector: jdbc:mysql
+    host: localhost
+    port: 3306
+    database: ajufit
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      show-sql: true
+      ddl-auto: create-drop
