@@ -3,14 +3,13 @@ package com.aju.fit.ajufit.repository.model;
 import com.aju.fit.ajufit.statics.UserType;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.sql.Blob;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity
-@EntityScan
 @Table(name = "user")
 public class UserEntity {
     @Id
@@ -24,10 +23,24 @@ public class UserEntity {
     private String email;
     @Column(name = "phone")
     private String phone;
+    @Column(name = "name")
+    private String name;
     @Column(name = "type")
     private UserType type;
     @Column(name = "social_media")
     private String socialMedia;
     @Column(name = "profile_picture")
     private Blob profilePicture;
+    @OneToMany(mappedBy = "professor")
+    private Set<UserSubscriptionEntity> professor;
+    @OneToMany(mappedBy = "student")
+    private Set<UserSubscriptionEntity> student;
+    @OneToMany(mappedBy = "user")
+    private Set<WorkoutEntity> workouts;
+    @OneToMany(mappedBy = "user")
+    private Set<ExecutionEntity> executions;
+    @OneToMany(mappedBy = "professor")
+    private Set<AnamnesisEntity> anamnesis;
+    @OneToMany(mappedBy = "user")
+    private Set<AnamnesisAnwserEntity> anamnesisAnwser;
 }
