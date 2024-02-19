@@ -9,11 +9,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "execution")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExecutionEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,20 +11,28 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Set;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @Entity
 @Table(name = "anamnesis")
+@NoArgsConstructor
+@AllArgsConstructor
 public class AnamnesisEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "date_created")
+  @CreationTimestamp
   private LocalDateTime dateCreated;
 
   @Column(name = "date_last_updated")
+  @UpdateTimestamp
   private LocalDateTime dateLastUpdated;
 
   @Column(name = "title")
