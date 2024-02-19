@@ -1,5 +1,6 @@
 package com.aju.fit.ajufit.service;
 
+import com.aju.fit.ajufit.exception.IncompatibleUserException;
 import com.aju.fit.ajufit.model.UserDto;
 import com.aju.fit.ajufit.model.UserProfessorDto;
 import com.aju.fit.ajufit.repository.UserRepository;
@@ -52,11 +53,11 @@ public class CreateStudent implements CreateUserStrategy {
           // saving twice to update relation btw professor and student
           return saveUser(student);
         }
-        throw new Exception("User already exists");
+        throw new IncompatibleUserException("Student already exists");
       }
-      throw new Exception("Cannot create user, professor is inactive");
+      throw new IncompatibleUserException("Can`t create user, professor is inactive");
     }
-    throw new Exception("Cannot create user, incompatible types");
+    throw new IncompatibleUserException("Can`t create user, incompatible types");
   }
 
   private UserEntity saveUser(UserEntity user) {
