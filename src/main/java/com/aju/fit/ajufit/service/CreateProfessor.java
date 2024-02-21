@@ -1,5 +1,6 @@
 package com.aju.fit.ajufit.service;
 
+import com.aju.fit.ajufit.exception.IncompatibleUserException;
 import com.aju.fit.ajufit.model.UserDto;
 import com.aju.fit.ajufit.repository.UserRepository;
 import com.aju.fit.ajufit.repository.model.UserEntity;
@@ -20,10 +21,15 @@ public class CreateProfessor implements CreateUserStrategy {
   public UserEntity create(UserDto request) throws Exception {
     // if is a professor -> insert new line
     if (UserType.isProfessor(request.type())) {
-      return save(request);
-    }
+      final var professorOptional =
+          userRepository.findByPhoneAndEmail(request.phone(), request.email());
 
-    throw new Exception("Cannot create user, incompatible types");
+      if (professorOptional.isEmpty()) {
+        return save(request);
+      }
+      throw new IncompatibleUserException("Professor already exists");
+    }
+    throw new IncompatibleUserException("Can`t create user, incompatible types");
   }
 
   private UserEntity save(UserDto request) throws Exception {

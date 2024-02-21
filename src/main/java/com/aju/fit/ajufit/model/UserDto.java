@@ -4,6 +4,7 @@ import com.aju.fit.ajufit.repository.model.UserEntity;
 import com.aju.fit.ajufit.statics.UserType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.sql.SQLException;
@@ -14,10 +15,15 @@ import lombok.Builder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record UserDto(
     @JsonProperty(index = 1) Long id,
-    @NotNull @NotEmpty String email,
-    @NotNull @NotEmpty String phone,
-    @NotNull @NotEmpty String name,
-    @NotNull @NotEmpty UserType type,
+    @NotNull(message = "Email cannot be null")
+        @NotEmpty(message = "Email cannot be empty")
+        @Email(message = "Invalid email")
+        String email,
+    @NotNull(message = "Phone cannot be null") @NotEmpty(message = "Phone cannot be empty")
+        String phone,
+    @NotNull(message = "Name cannot be null") @NotEmpty(message = "Name cannot be empty")
+        String name,
+    @NotNull(message = "User type cannot be null") UserType type,
     @JsonProperty("social_media") String socialMedia,
     @JsonProperty("profile_picture") byte[] profilePicture,
     @JsonProperty("is_active") Boolean isActive,

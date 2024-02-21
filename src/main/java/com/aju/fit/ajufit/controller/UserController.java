@@ -2,6 +2,7 @@ package com.aju.fit.ajufit.controller;
 
 import com.aju.fit.ajufit.model.UserDto;
 import com.aju.fit.ajufit.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ public class UserController {
   }
 
   @PostMapping("/user")
-  public UserDto createUser(@RequestBody UserDto request) throws Exception {
+  public UserDto createUser(@RequestBody @Valid UserDto request) throws Exception {
     return userService.createUser(request);
   }
 }
