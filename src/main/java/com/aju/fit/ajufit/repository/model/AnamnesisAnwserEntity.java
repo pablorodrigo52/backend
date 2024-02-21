@@ -9,17 +9,23 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
 @Table(name = "anamnesis_anwser")
+@NoArgsConstructor
+@AllArgsConstructor
 public class AnamnesisAnwserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "date_created")
+  @CreationTimestamp
   private LocalDateTime dateCreated;
 
   @Column(name = "answer")

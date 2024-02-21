@@ -11,17 +11,23 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Set;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
 @Table(name = "question")
+@NoArgsConstructor
+@AllArgsConstructor
 public class QuestionEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "date_created")
+  @CreationTimestamp
   private LocalDateTime dateCreated;
 
   @ManyToOne

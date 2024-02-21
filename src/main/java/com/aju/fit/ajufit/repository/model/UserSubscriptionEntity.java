@@ -1,35 +1,42 @@
 package com.aju.fit.ajufit.repository.model;
 
 import com.aju.fit.ajufit.repository.model.keys.UserSubscriptionKey;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @Entity
 @Table(name = "user_subscription")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserSubscriptionEntity {
   @EmbeddedId private UserSubscriptionKey id;
 
-  @ManyToOne
+  @OneToOne(cascade = CascadeType.PERSIST)
   @MapsId("professorId")
-  @JoinColumn(name = "professor_id")
+  @JoinColumn(name = "professor_id", referencedColumnName = "id")
   private UserEntity professor;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.PERSIST)
   @MapsId("studentId")
   @JoinColumn(name = "student_id")
   private UserEntity student;
 
   @Column(name = "date_created")
+  @CreationTimestamp
   private LocalDateTime dateCreated;
 
   @Column(name = "date_last_updated")
+  @UpdateTimestamp
   private LocalDateTime dateLastUpdated;
+
+  @Column(name = "is_active")
+  private Boolean isActive;
 }
